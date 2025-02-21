@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Drawing App</title>
+</head>
+<body>
+
+    <h1>Simple Drawing App</h1>
+    <canvas id="canvas" width="500" height="400"></canvas>
+
+    <div>
+        <label for="color">Color:</label>
+        <input type="color" id="color" value="#000000">
+    </div>
+
+    <div>
+        <label for="brush-size">Brush Size:</label>
+        <input type="range" id="brush-size" min="1" max="20" value="5">
+    </div>
+
+    <button id="clear-btn">Clear Canvas</button>
+
+    <script>
+    
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+
+    
+        let drawing = false;
+        let brushSize = 5;
+        let color = '#000000';
+
+        const colorInput = document.getElementById('color');
+        const brushSizeInput = document.getElementById('brush-size');
+        const clearButton = document.getElementById('clear-btn');
+
+        ctx.lineWidth = brushSize;
+        ctx.strokeStyle = color;
+        ctx.lineCap = 'round';
+
+        function startDrawing(e) {
+            drawing = true;
+            draw(e);
+        }
+
+        function stopDrawing() {
+            drawing = false;
+            ctx.beginPath();
+        }
+
+        function draw(e) {
+            if (!drawing) return;
+            ctx.lineTo(e.clientX - canvas.offsetLeft, e.clientY - canvas.offsetTop);
+            ctx.stroke();
+        }
+        canvas.addEventListener('mousedown', startDrawing);
+        canvas.addEventListener('mousemove', draw);
+        canvas.addEventListener('mouseup', stopDrawing);
+        canvas.addEventListener('mouseout', stopDrawing);
+
+        colorInput.addEventListener('input', function() {
+            color = colorInput.value;
+            ctx.strokeStyle = color;
+        });
+        brushSizeInput.addEventListener('input', function() {
+            brushSize = brushSizeInput.value;
+            ctx.lineWidth = brushSize;
+        });
+
+        clearButton.addEventListener('click', function() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height); 
+        });
+    </script>
+
+</body>
+</html>
