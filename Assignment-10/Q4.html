@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multiplication Table Generator</title>
+    <script>
+        function generateTable() {
+            const num = document.getElementById('number').value;
+            const tableContainer = document.getElementById('tableContainer');
+            tableContainer.innerHTML = ''; // Clear previous table
+
+            if (num < 1 || num > 10) {
+                alert('Please enter a number between 1 and 10');
+                return;
+            }
+
+            let table = '<table border="1"><tr><th>Multiplication</th><th>Result</th></tr>';
+
+            for (let i = 1; i <= 10; i++) {
+                table += `<tr><td>${num} x ${i}</td><td>${num * i}</td></tr>`;
+            }
+
+            table += '</table>';
+            tableContainer.innerHTML = table;
+        }
+    </script>
+</head>
+<body>
+    <h2>Multiplication Table Generator</h2>
+    <fieldset>
+        <legend>Enter a number (1 to 10) to generate the multiplication table:</legend>
+        <input type="number" id="number" min="1" max="10" required>
+        <button onclick="generateTable()">Generate Table</button>
+    </fieldset>
+    <div id="tableContainer"></div>
+</body>
+</html>
