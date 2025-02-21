@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Country-State Selection</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        select {
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 16px;
+            width: 200px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Country and State Selection</h1>
+
+    <label for="country">Select Country:</label>
+    <select id="country">
+        <option value="">Select a country</option>
+        <option value="usa">USA</option>
+        <option value="india">India</option>
+        <option value="uk">UK</option>
+    </select>
+
+
+    <label for="state">Select State:</label>
+    <select id="state">
+        <option value="">Select a state</option>
+    </select>
+
+    <script>
+
+        const countryStates = {
+            usa: ['California', 'Texas', 'New York'],
+            india: ['Delhi', 'Mumbai', 'Kolkata'],
+            uk: ['England', 'Scotland', 'Wales']
+        };
+
+        const countryDropdown = document.getElementById('country');
+        const stateDropdown = document.getElementById('state');
+
+        countryDropdown.addEventListener('change', function() {
+  
+            const selectedCountry = countryDropdown.value;
+
+            stateDropdown.innerHTML = '<option value="">Select a state</option>';
+
+            if (selectedCountry) {
+                const states = countryStates[selectedCountry];
+
+         
+                states.forEach(function(state) {
+                    const option = document.createElement('option');
+                    option.value = state.toLowerCase();
+                    option.textContent = state;
+                    stateDropdown.appendChild(option);
+                });
+            }
+        });
+    </script>
+
+</body>
+</html>
